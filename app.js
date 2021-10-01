@@ -98,7 +98,7 @@ app.put('/product/update/:id', (req, res) => {
 
         if (err) res.send(err);
 
-       res.status(202).send(updatedProduct);
+        res.status(202).send(updatedProduct);
 
         console.log(updatedProduct);
     });

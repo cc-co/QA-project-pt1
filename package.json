@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon start.js",
-    "test": "jest -passWithNoTests --coverage"
+    "test": "jest --passWithNoTests --coverage"
   },
   "repository": {
     "type": "git",
