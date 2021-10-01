@@ -3,7 +3,7 @@ const Datastore = require('nedb');
 const db = new Datastore();
 
 const app = express();
-const PORT = 8080;
+
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -23,7 +23,7 @@ productAdd = (productName, productDes, productPrice) => {
 
 };
 
-// GET - RESTful 
+// GET - RESTful read all
 
 app.get('/products', (req, res) => {
 
@@ -40,7 +40,7 @@ app.get('/products', (req, res) => {
 
 });
 
-// GET by id - RESTful 
+// GET by id - RESTful read one
 
 app.get('/product/:id', (req, res) => {
 
@@ -59,7 +59,7 @@ app.get('/product/:id', (req, res) => {
 
 });
 
-// POST
+// POST - RESTful create
 
 app.post('/product/create', (req, res) => {
 
@@ -82,7 +82,7 @@ app.post('/product/create', (req, res) => {
 
 app.put('/product/update/:id', (req, res) => {
 
-    console.log(`Update product by id: \n`);
+    console.log(`Updated product by id: \n`);
 
     let prodId = req.params.id;
     
@@ -105,11 +105,26 @@ app.put('/product/update/:id', (req, res) => {
 
 });
 
+// DELETE by id - RESTful delete 
 
+app.delete('/product/delete/:id', (req, res) => {
 
-app.listen(PORT, () => {
-    console.log(`API listening on http:localhost:${PORT}`);
+    console.log(`Delete product by id: \n`);
+
+    let prodId = req.params.id;
+
+    db.remove({_id: prodId}, (err, product) => {
+
+        if (err) res.send(err);
+
+        res.status(202).send(`Deleted item id is ${prodId}`);
+
+        console.log(`Deleted item id is ${prodId}`);
+    });
+
 });
 
+
+module.exports = {app, productAdd};
 
 

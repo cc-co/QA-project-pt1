@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon start.js",
     "test": "jest -passWithNoTests --coverage"
   },
   "repository": {
