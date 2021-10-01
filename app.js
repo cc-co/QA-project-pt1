@@ -40,6 +40,25 @@ app.get('/products', (req, res) => {
 
 });
 
+// GET by id - RESTful 
+
+app.get('/product/:id', (req, res) => {
+
+    console.log(`Read product by id: \n`);
+
+    let prodId = req.params.id;
+
+    db.find({_id: prodId}, (err, product) => {
+
+        if (err) res.send(err);
+
+        res.status(200).send(product);
+
+        console.log(product);
+    });
+
+});
+
 // POST
 
 app.post('/product/create', (req, res) => {
