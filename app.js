@@ -78,6 +78,33 @@ app.post('/product/create', (req, res) => {
 
 });
 
+// PUT - RESTful update
+
+app.put('/product/update/:id', (req, res) => {
+
+    console.log(`Update product by id: \n`);
+
+    let prodId = req.params.id;
+    
+    let updatedProduct ={
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        _id: prodId
+    }
+    
+
+    db.update({_id: prodId}, updatedProduct, (err, product) => {
+
+        if (err) res.send(err);
+
+       res.status(202).send(updatedProduct);
+
+        console.log(updatedProduct);
+    });
+
+});
+
 
 
 app.listen(PORT, () => {
