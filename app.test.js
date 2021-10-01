@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('./app').app;
-const build = require('./app').productAdd;
+const add = require('./app').productAdd;
 
 // TEST THE REST API ENDPOINT FOR GET
 describe('GET requests', () => {
@@ -35,9 +35,22 @@ describe('CREATE request', () => {
 
 // UNIT TEST THE PRODUCT BUILDER
 describe('Unit Tests', () => {
+    const product = {
+        name: "test product name",
+        description: "test product description",
+        price: 10
+    }
+    test('product object add with all fields, success case', () => {
+        expect(add("test product name", "test product description", 10)).toStrictEqual(product);
+    });
 
-    test('product object builder', () => {
-        // TEST IN HERE
+    const product_m = {
+        name: undefined,
+        description: "test product description",
+        price: 10
+    }
+    test('product object add with missing fields, failed case', () => {
+        expect(add(product_m)).toStrictEqual(undefined);
     });
 
 });

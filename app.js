@@ -13,11 +13,18 @@ app.use(bodyParser.urlencoded({
 
 productAdd = (productName, productDes, productPrice) => {
     
-    let product = {
-        name: productName,
-        description: productDes,
-        price: productPrice
-    };
+    if(productName != undefined && productDes != undefined && productPrice != undefined){
+        
+        let product = {
+            name: productName,
+            description: productDes,
+            price: productPrice
+        };
+        
+        return product;
+    }else{
+        product = undefined;
+    } 
     
     return product;
 
@@ -67,14 +74,21 @@ app.post('/product/create', (req, res) => {
 
     let product = productAdd(req.body.name, req.body.description, req.body.price);
 
-    db.insert(product, (err, product) => {
 
-        if (err) res.send(err);
+    if(product != undefined){
+            db.insert(product, (err, product) => {
 
-       res.status(200).send(product);
+            if (err) res.send(err);
+            
+            res.status(200).send(product);
 
-        console.log(product);
-    });
+            console.log(product);
+        });
+    }else{
+        res.status(500).send(`\n Missing name, description or price fields so ${product} product is not created`);
+        console.log(`Product must have all name, description and price fields, so an ${product} product is not created`);
+    };
+
 
 });
 
