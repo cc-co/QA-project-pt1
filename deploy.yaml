@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploynode
+  labels: 
+    app: node
+spec:
+  selector:
+    matchLabels:
+      app: pod
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: pod
+    spec:
+      containers:
+      - name: nodecontainer
+        image: gcr.io/training-325404/nodedocker_clarisa:v11
+        ports:
+        - containerPort: 8080
